@@ -1,8 +1,13 @@
 #! /bin/bash
+
+echo "Initializing"
 liquidctl initialize all
-liquidctl --match $MATCH list
-liquidctl --match $MATCH set pump speed $PUMPSPEED
-liquidctl --match $MATCH set fan speed $FANSPEED
+
+echo "Setting pump speed ${PUMPSPEED}"
+liquidctl --match Kraken set pump speed $PUMPSPEED
+
+echo "Setting fan speed to ${FANSPEED}"
+liquidctl --match Corsair set fans speed $FANSPEED
 
 if [ ! -z "$COLORSPEC" ]; then
    liquidctl $COLORSPEC
@@ -10,6 +15,6 @@ fi
 
 sleep 20
 while true; do
-        liquidctl --match $MATCH status
-        sleep 15
+        liquidctl status
+        sleep 60
 done
